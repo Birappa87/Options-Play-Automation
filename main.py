@@ -94,10 +94,10 @@ def extract_data(url, choice):
         
         page.goto(url=url)
         page.fill(
-           'input#Login', 'info@codanalytics.net' 
+           'input#Login', os.environ.get("USERNAME")
         )
         page.fill(
-            'input#Password', '!ZK123sebe'
+            'input#Password', os.environ.get("SECRET_KEY")
         )
 
         #click on submit button
