@@ -47,16 +47,28 @@ def dump_data(df, choice):
 
     if choice == 'CreditSpreadFile':
         df = pd.read_csv('data\credit_spread.csv')
-        # Write DataFrame to PostgreSQL database using SQLAlchemy
-        df.to_sql('Optionsplay_Credit_spread', engine, if_exists='replace', index=False)
-
+        new_columns = [x.replace(" ", "_") for x in df.columns]
+        print(new_columns)
+        df.columns = new_columns
+        df['id'] = df.reset_index().index
+        print(df.columns)
+        df.to_sql('investing_cread_spread', engine, if_exists='replace')
     elif choice == 'coveredCalls':
         df = pd.read_csv('data\covered_calls.csv')
-        df.to_sql('Optionsplay_Covered_calls', engine, if_exists='replace', index=False)
-
+        new_columns = [x.replace(" ", "_") for x in df.columns]
+        print(new_columns)
+        df.columns = new_columns
+        df['id'] = df.reset_index().index
+        print(df.columns)
+        df.to_sql('investing_covered_calls', engine, if_exists='replace')
     else:
         df = pd.read_csv('data\shortput.csv')
-        df.to_sql('OptionsPlay_short_put', engine, if_exists='replace', index=False)
+        new_columns = [x.replace(" ", "_") for x in df.columns]
+        print(new_columns)
+        df.columns = new_columns
+        df['id'] = df.reset_index().index
+        print(df.columns)
+        df.to_sql('investing_shortput', engine, if_exists='replace')
 
 
 def parse_data(html, choice):
