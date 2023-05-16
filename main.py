@@ -47,15 +47,16 @@ def dump_data(df, choice):
 
     if choice == 'CreditSpreadFile':
         df = pd.read_csv('data\credit_spread.csv')
-        new_columns = [x.replace(" ", "_") for x in df.columns]
+        new_columns = [x.replace(" ", "_").replace("/", "_") for x in df.columns]
         print(new_columns)
         df.columns = new_columns
         df['id'] = df.reset_index().index
+        df.rename(columns={'IV_Rank' : 'Rank'}, inplace=True)
         print(df.columns)
         df.to_sql('investing_cread_spread', engine, if_exists='replace')
     elif choice == 'coveredCalls':
         df = pd.read_csv('data\covered_calls.csv')
-        new_columns = [x.replace(" ", "_") for x in df.columns]
+        new_columns = [x.replace(" ", "_").replace("/", "_") for x in df.columns]
         print(new_columns)
         df.columns = new_columns
         df['id'] = df.reset_index().index
@@ -63,7 +64,7 @@ def dump_data(df, choice):
         df.to_sql('investing_covered_calls', engine, if_exists='replace')
     else:
         df = pd.read_csv('data\shortput.csv')
-        new_columns = [x.replace(" ", "_") for x in df.columns]
+        new_columns = [x.replace(" ", "_").replace("/", "_") for x in df.columns]
         print(new_columns)
         df.columns = new_columns
         df['id'] = df.reset_index().index
